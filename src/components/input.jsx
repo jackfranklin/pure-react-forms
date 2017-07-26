@@ -26,12 +26,15 @@ export default class Input extends Component {
 
   propsForRender() {
     const field = this.field()
+    const { render, fieldName, ...additionalProps } = this.props
+
     return {
       name: field.name,
       value: field.value,
       onChange: this.onChange,
       onBlur: this.onBlur,
       required: field.isRequired(),
+      ...additionalProps,
     }
   }
 
@@ -54,17 +57,25 @@ export default class Input extends Component {
     }
   }
 
+  hasError() {
+    return (
+      this.field().isValid() === false &&
+      this.field().isBlurred() === true &&
+      this.field().isTouched() === true
+    )
+  }
+
   render() {
     const wrapperClasses = (this.props.className || '')
       .split(' ')
-      .concat([this.field().isValid() ? null : 'has-error'])
+      .concat([this.hasError() ? 'has-error' : null])
       .filter(x => x)
       .join(' ')
 
     return (
       <div className={wrapperClasses}>
         {this.props.render(this.propsForRender())}
-        {this.field().isValid() === false &&
+        {this.hasError() &&
           <span className="input-error">
             {this.errorMessage()}
           </span>}

@@ -6,8 +6,11 @@ import createForm from '../form'
 
 describe('ValidatedInput', () => {
   let form
+  let onChangeSpy
 
   beforeEach(() => {
+    onChangeSpy = jest.fn()
+
     form = createForm({
       alwaysValid: {
         errorMessage: 'This field is always valid',
@@ -31,6 +34,7 @@ describe('ValidatedInput', () => {
       state = { form }
 
       onFormChange = form => {
+        onChangeSpy(form)
         this.setState({ form })
       }
 
@@ -54,9 +58,18 @@ describe('ValidatedInput', () => {
     expect(wrapper.find('input').props().value).toEqual('alwaysValid')
   })
 
+  it('calls the context onChange when the value changes', () => {
+    const ValidForm = createDummyFormComponent('alwaysValid')
+    const wrapper = mount(<ValidForm />)
+    wrapper.find('input').simulate('change', { target: { value: 'bar' } })
+    expect(onChangeSpy).toHaveBeenCalled()
+  })
+
   it('throws a nice error if the field cannot be found', () => {
     const FormWithBadField = createDummyFormComponent('FIELD_DOESNT_EXIST')
-    expect(() => mount(<FormWithBadField />)).toThrowError(/Field FIELD_DOESNT_EXIST not found/)
+    expect(() => mount(<FormWithBadField />)).toThrowError(
+      /Field FIELD_DOESNT_EXIST not found/
+    )
   })
 
   it('does not show an error when the field is valid', () => {
@@ -90,20 +103,19 @@ describe('ValidatedInput', () => {
     expect(wrapper.find('div').hasClass('has-error')).toEqual(true)
     expect(wrapper.find('span.input-error').text()).toEqual('Totes Invalid')
   })
+
+  it('does not show an error if the field is invalid but has not been blurred', () => {
+    const InvalidForm = createDummyFormComponent('alwaysInvalid')
+    const wrapper = mount(<InvalidForm />)
+
+    wrapper.find('input').simulate('change', { target: { value: 'bar' } })
+    expect(wrapper.find('div').hasClass('has-error')).toEqual(false)
+  })
+
+  it('does not show an error if the field is invalid but not touched', () => {
+    const InvalidForm = createDummyFormComponent('alwaysInvalid')
+    const wrapper = mount(<InvalidForm />)
+
+    expect(wrapper.find('div').hasClass('has-error')).toEqual(false)
+  })
 })
-
-//   it('does not show an error if the field is invalid but has not been blurred', () => {
-//     const InvalidForm = createDummyFormComponent('alwaysInvalid')
-//     const wrapper = mount(<InvalidForm />)
-
-//     wrapper.find('input').simulate('change', { target: { value: 'bar' } })
-//     expect(wrapper.find('div').hasClass('has-error')).toEqual(false)
-//   })
-
-//   it('does not show an error if the field is invalid but not touched', () => {
-//     const InvalidForm = createDummyFormComponent('alwaysInvalid')
-//     const wrapper = mount(<InvalidForm />)
-
-//     expect(wrapper.find('div').hasClass('has-error')).toEqual(false)
-//   })
-// })

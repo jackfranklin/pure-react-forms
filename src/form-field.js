@@ -44,12 +44,14 @@ export class FormField {
 
   blur() {
     return new FormField(this.name, this.getOptions(), {
+      ...this.state,
       isBlurred: true,
     })
   }
 
   touch() {
     return new FormField(this.name, this.getOptions(), {
+      ...this.state,
       isTouched: true,
     })
   }
