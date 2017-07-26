@@ -12,6 +12,16 @@ export class Form {
     }
   }
 
+  serialize(mapFns = {}) {
+    let result = {}
+    Object.keys(this.fields()).forEach(field => {
+      const mapFn = mapFns[field] || (x => x)
+      result[field] = mapFn(this.getValue(field))
+    })
+
+    return result
+  }
+
   fields(fieldName) {
     return fieldName ? this._fields[fieldName] : this._fields
   }

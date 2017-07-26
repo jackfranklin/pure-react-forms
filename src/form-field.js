@@ -4,7 +4,7 @@ export class FormField {
     {
       value = '',
       onChange = field => field,
-      validator,
+      validator = () => true,
       errorMessage = '',
       isRequired = false,
     } = {},

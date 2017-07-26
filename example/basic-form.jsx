@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Form from '../src/components/form'
 import TextInput from '../src/components/text-input'
+import SelectInput from '../src/components/select-input'
 import { createForm } from '../src/index'
 
 class BasicForm extends Component {
@@ -11,6 +12,9 @@ class BasicForm extends Component {
         validator: input => input.indexOf('@') > -1,
         errorMessage: 'The given email is invalid',
         isRequired: true,
+      },
+      favouriteColour: {
+        value: 'blue',
       },
     }),
   }
@@ -32,6 +36,11 @@ class BasicForm extends Component {
             onChange={this.onFormChange}
             onSubmit={this.onSubmit}
           >
+            <SelectInput fieldName="favouriteColour">
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+            </SelectInput>
             <TextInput
               fieldName="email"
               type="email"

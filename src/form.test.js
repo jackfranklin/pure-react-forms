@@ -38,6 +38,50 @@ describe('a form', () => {
     expect(newForm.fields('name').isDirty()).toEqual(true)
   })
 
+  describe('serializing the values', () => {
+    it('can produce an object of key values', () => {
+      const name = 'Jack'
+      const email = 'jack@jackfranklin.net'
+
+      const form = createForm({
+        name: {
+          value: name,
+        },
+        email: {
+          value: email,
+        },
+      })
+
+      expect(form.serialize()).toEqual({
+        name,
+        email,
+      })
+    })
+
+    it('lets a value be mapped', () => {
+      const name = 'Jack'
+      const email = 'jack@jackfranklin.net'
+
+      const form = createForm({
+        name: {
+          value: name,
+        },
+        email: {
+          value: email,
+        },
+      })
+
+      expect(
+        form.serialize({
+          name: input => input.toUpperCase(),
+        })
+      ).toEqual({
+        name: 'JACK',
+        email,
+      })
+    })
+  })
+
   describe('form validations', () => {
     it('is valid when no fields have been touched', () => {
       const form = createForm({
