@@ -15,23 +15,32 @@ export class FormField {
     this.errorMessage = errorMessage
     this.onChange = onChange
     this.validator = validator
-    this.state = { isDirty, isTouched, isBlurred, isRequired }
+    this._isRequired = isRequired
+    this.state = { isDirty, isTouched, isBlurred }
 
     Object.keys(this.state).forEach(stateKey => {
       this[stateKey] = () => this.state[stateKey]
     })
   }
 
+  isRequired() {
+    return this._isRequired === true
+  }
+
   getOptions() {
     return {
       ...this,
+      isRequired: this._isRequired,
     }
   }
 
   isValid() {
     const notBlurredOrNotRequired =
       this.isBlurred() === false && this.isRequired() === false
-    if (this.value === '' && notBlurredOrNotRequired) {
+
+    if (this.value === '' && this.isRequired() === false) {
+      return true
+    } else if (this.value === '' && notBlurredOrNotRequired) {
       return true
     } else {
       return this.validator(this.value)
@@ -65,6 +74,7 @@ export class FormField {
         value: newValue,
       },
       {
+        ...this.state,
         isDirty: true,
       }
     )

@@ -101,7 +101,7 @@ describe('a form field', () => {
 
   it('can be made required', () => {
     const field = createFormField('email', 'old', {
-      state: { isRequired: true },
+      isRequired: true,
     })
     expect(field.isRequired()).toEqual(true)
   })

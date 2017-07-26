@@ -26,23 +26,32 @@ class BasicForm extends Component {
   render() {
     return (
       <div>
-        <Form
-          form={this.state.form}
-          onChange={this.onFormChange}
-          onSubmit={this.onSubmit}
-        >
-          <TextInput
-            fieldName="email"
-            type="email"
-            placeholder="bill@gates.com"
-          />
-          <button type="submit" disabled={this.state.form.isValid() === false}>
-            Submit to my super service
-          </button>
-        </Form>
-        <p>
-          Your email is: {this.state.form.getValue('email')}
-        </p>
+        <div className="form-container">
+          <Form
+            form={this.state.form}
+            onChange={this.onFormChange}
+            onSubmit={this.onSubmit}
+          >
+            <TextInput
+              fieldName="email"
+              type="email"
+              placeholder="bill@gates.com"
+            />
+            <button
+              type="submit"
+              disabled={this.state.form.isValid() === false}
+            >
+              Submit to my super service
+            </button>
+          </Form>
+        </div>
+        <div className="state-container">
+          <pre>
+            <code>
+              {JSON.stringify(this.state.form, null, 2)}
+            </code>
+          </pre>
+        </div>
       </div>
     )
   }
