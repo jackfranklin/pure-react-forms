@@ -6,13 +6,9 @@ export class FormField {
       onChange = field => field,
       validator,
       errorMessage = '',
-    } = {},
-    {
-      isDirty = false,
-      isTouched = false,
-      isBlurred = false,
       isRequired = false,
-    } = {}
+    } = {},
+    { isDirty = false, isTouched = false, isBlurred = false } = {}
   ) {
     this.name = name
     this.value = value
@@ -34,7 +30,7 @@ export class FormField {
 
   isValid() {
     const notBlurredOrNotRequired =
-      this.isBlurred() === false || this.isRequired() === false
+      this.isBlurred() === false && this.isRequired() === false
     if (this.value === '' && notBlurredOrNotRequired) {
       return true
     } else {
