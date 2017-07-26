@@ -25,8 +25,8 @@ class BasicForm extends Component {
 
   render() {
     return (
-      <div>
-        <div className="form-container">
+      <div className="form-container">
+        <div>
           <Form
             form={this.state.form}
             onChange={this.onFormChange}

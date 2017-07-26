@@ -1,6 +1,42 @@
 <html>
   <head>
     <title>Pure React Forms example</title>
+    <style type="text/css">
+      .form-container {
+        overflow: auto;
+        font-size: 14px;
+      }
+
+      .form-container > div {
+        float: left;
+        width: 45%;
+      }
+
+      .form-container > div:first-of-type {
+        margin-right: 20px;
+      }
+
+      .form-container input,
+      .form-container button,
+      .input-error {
+        padding: 10px;
+        margin: 10px;
+        box-sizing: border-box;
+        font-size: 14px;
+        width: 200px;
+        display: block;
+      }
+
+      .has-error input {
+        margin-bottom: 0;
+      }
+
+      .input-error {
+        background: red;
+        color: white;
+        margin-top: 0;
+      }
+    </style>
   </head>
   <body>
     <div id="app">

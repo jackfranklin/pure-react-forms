@@ -68,7 +68,10 @@ export default class Input extends Component {
   render() {
     const wrapperClasses = (this.props.className || '')
       .split(' ')
-      .concat([this.hasError() ? 'has-error' : null])
+      .concat([
+        this.hasError() ? 'has-error' : null,
+        'pure-react-input-wrapper',
+      ])
       .filter(x => x)
       .join(' ')
 
