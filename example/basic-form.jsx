@@ -17,6 +17,7 @@ class BasicForm extends Component {
         value: 'blue',
       },
     }),
+    submitted: null,
   }
 
   onFormChange = form => this.setState({ form })
@@ -24,7 +25,9 @@ class BasicForm extends Component {
   onSubmit = e => {
     e.preventDefault()
 
-    alert('Your submitted email was ' + this.state.form.getValue('email'))
+    this.setState({
+      submitted: this.state.form.serialize(),
+    })
   }
 
   render() {
@@ -60,6 +63,15 @@ class BasicForm extends Component {
               {JSON.stringify(this.state.form, null, 2)}
             </code>
           </pre>
+          {this.state.submitted &&
+            <div>
+              <p>Submitted:</p>
+              <pre>
+                <code>
+                  {JSON.stringify(this.state.submitted, null, 2)}
+                </code>
+              </pre>
+            </div>}
         </div>
       </div>
     )
