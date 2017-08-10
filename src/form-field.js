@@ -3,7 +3,7 @@ export class FormField {
     name,
     {
       value = '',
-      onChange = field => field,
+      onChange = form => form,
       validator = () => true,
       errorMessage = '',
       isRequired = false,
@@ -100,70 +100,3 @@ const createFormField = (name, value = '', opts = {}) => {
 }
 
 export default createFormField
-// const makeField = (fieldName, initialKeys) => ({
-//   value: '',
-//   name: fieldName,
-//   isRequired: true,
-//   onChange: form => form,
-//   ...initialKeys,
-//   isValid: null,
-//   // a value is "dirty" if its value has been edited by the user
-//   isDirty: false,
-//   touched: false,
-//   blurred: false,
-//   form: undefined,
-//   calculateIfRequired() {
-//     if (typeof this.isRequired === 'boolean') return this.isRequired
-//     return this.isRequired(this.form)
-//   },
-//   validateAndSetFields(fields = {}) {
-//     const valueToValidate = fields.hasOwnProperty('value')
-//       ? fields.value
-//       : this.value
-
-//     const fieldsToSet = {
-//       ...this,
-//       ...fields,
-//       // if a new value was passed in, we should validate against that, not the current this.value
-//       isValid: (value => {
-//         const isRequired = this.calculateIfRequired()
-
-//         if (value && typeof value.trim === 'function') value = value.trim()
-
-//         const isEmpty = !value
-
-//         const isValid =
-//           this.validator(value) === true ||
-//           (isRequired === false && isEmpty === true)
-
-//         return isValid
-//       })(valueToValidate),
-//     }
-
-//     // only want to set isDirty IF:
-//     // isDirty is explicitly passed in
-//     // value is explicitly passed in
-//     if (fields.hasOwnProperty('isDirty')) {
-//       fieldsToSet.isDirty = fields.isDirty
-//     } else if (fields.hasOwnProperty('value')) {
-//       fieldsToSet.isDirty = valueToValidate !== this.value
-//     }
-
-//     return fieldsToSet
-//   },
-//   setValue(v) {
-//     return this.validateAndSetFields({ value: v })
-//   },
-//   setRequired(isRequired) {
-//     return this.validateAndSetFields({ isRequired })
-//   },
-//   touch() {
-//     return this.validateAndSetFields({ touched: true })
-//   },
-//   blur() {
-//     return this.validateAndSetFields({ blurred: true })
-//   },
-//   validate() {
-//     return this.validateAndSetFields()
-//   },
-// })
