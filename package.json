@@ -2,14 +2,20 @@
   "name": "pure-react-forms",
   "version": "0.0.1",
   "description": "A pure React form library.",
-  "main": "index.js",
+  "main": "lib/index.js",
   "author": "Jack Franklin",
   "scripts": {
     "example": "webpack-dev-server --config example/webpack.config.js",
+    "babel": "babel -d lib src",
+    "prepublish": "yarn run babel",
     "test": "jest"
   },
+  "files": [
+    "lib"
+  ],
   "license": "MIT",
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-jest": "^20.0.3",
     "babel-loader": "^7.1.1",
