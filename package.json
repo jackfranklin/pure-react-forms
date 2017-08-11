@@ -7,6 +7,7 @@
   "scripts": {
     "example:dev": "webpack-dev-server --config example/webpack.config.js",
     "example:prod": "webpack --config example/webpack.prod.config.js --progress",
+    "example:deploy": "yarn run example:prod && (cd example/dist && surge --domain pure-react-forms.surge.sh)",
     "babel": "babel -d lib src",
     "prepublish": "yarn run babel",
     "test": "jest"
