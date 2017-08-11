@@ -1,26 +1,16 @@
 import React, { Component } from 'react'
 
 import Form from '../src/components/form'
-import TextInput from '../src/components/text-input'
-import SelectInput from '../src/components/select-input'
-import CheckboxInput from '../src/components/checkbox-input'
+import Input from '../src/components/input'
 import { createForm } from '../src/index'
 
-class BasicForm extends Component {
+class CustomInputForm extends Component {
   state = {
     form: createForm({
-      email: {
-        validator: input => input.indexOf('@') > -1,
-        errorMessage: 'The given email is invalid',
+      name: {
+        validator: name => name === 'jack',
+        errorMessage: 'Your name must be Jack',
         isRequired: true,
-      },
-      favouriteColour: {
-        value: 'blue',
-      },
-      isHappy: {
-        value: false,
-        validator: input => input === true,
-        errorMessage: 'You must be happy to submit!',
       },
     }),
     submitted: null,
@@ -45,18 +35,10 @@ class BasicForm extends Component {
             onChange={this.onFormChange}
             onSubmit={this.onSubmit}
           >
-            <SelectInput fieldName="favouriteColour">
-              <option value="red">Red</option>
-              <option value="blue">Blue</option>
-              <option value="green">Green</option>
-            </SelectInput>
-            <TextInput
-              fieldName="email"
-              type="email"
-              placeholder="bill@gates.com"
-            />
-            <label>Are you happy?</label>
-            <CheckboxInput fieldName="isHappy" />
+            {/*
+              it's rare that you have to do this, but if you need to fully control the raw HTML for one of your form components, you can use the Input component, which takes a `render` prop, which gets given the props you need to pass through to hook up all the event handlers.
+            */}
+            <Input fieldName="name" render={props => <input {...props} />} />
             <button
               type="submit"
               disabled={this.state.form.isValid() === false}
@@ -86,4 +68,4 @@ class BasicForm extends Component {
   }
 }
 
-export default BasicForm
+export default CustomInputForm

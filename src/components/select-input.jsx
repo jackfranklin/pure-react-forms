@@ -12,20 +12,12 @@ class SelectInput extends Component {
     ...inputTypes.defaultProps,
   }
 
-  static childContextTypes = {
-    isOptionSelected: PropTypes.func,
-  }
-
   renderSelect(props) {
-    return (
-      <select {...props}>
-        {this.props.children}
-      </select>
-    )
+    return <select {...props} />
   }
 
   render() {
-    const { fieldName, children, ...inputProps } = this.props
+    const { fieldName, ...inputProps } = this.props
 
     return (
       <Input
