@@ -2,6 +2,8 @@
 
 A library that reduces the boilerplate around React forms whilst having no external dependencies.
 
+__NOTE__: this is not ready for usage yet!
+
 ## Quick Example
 
 ```jsx
